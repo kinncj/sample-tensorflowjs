@@ -14,7 +14,7 @@ class Counter {
     }
 }
 
-const elements = ['preview', 'camera', 'canvas', 'cameraButton', 'videoSource'].reduce((acc, id) => {
+const webcamElements = ['preview', 'camera', 'canvas', 'cameraButton', 'videoSource'].reduce((acc, id) => {
     acc[id] = document.getElementById(id) || document.querySelector(`#${id.replace("Button", "")} > button`);
     return acc;
 }, {});
@@ -22,8 +22,13 @@ const elements = ['preview', 'camera', 'canvas', 'cameraButton', 'videoSource'].
 // const models = {'cocoSsd': null, 'deeplab': null, 'mobilenet': null};
 const models = {'cocoSsd': null};
 const counter = new Counter(Object.keys(models).length, () => {
-    elements.canvas.classList.remove('hidden');
-    App.getInstance(models, ...Object.values(elements)).init();
+    webcamElements.canvas.classList.remove('hidden');
+    new App(models, ...Object.values(webcamElements)).init();
+    new RtspApp(
+        models,
+        document.getElementById('rtsp'),
+        document.getElementById('rtspPreview'),
+        document.getElementById('rtspContainer')).init();
 });
 /**
  * Load the coco-ssd model from TensorFlow.js, remove the 'hidden' class from the canvas, and initialize an instance of the App class.

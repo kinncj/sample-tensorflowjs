@@ -5,6 +5,7 @@
   <title>Sample using TensorFlow.js</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="style.css">
+  <script src="./jsmpg.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-detection"></script>
@@ -26,9 +27,19 @@
     <button class="enable">Enable Webcam</button>
     <video id="preview" autoplay muted width="640" height="480"></video>
   </div>
+  <div id="rtspContainer" class="camera">
+    <canvas id="rtsp" width="640" height="480"></canvas>
+    <video id="rtspPreview" autoplay muted width="640" height="480" hidden="hidden"></video>
+  </div>
 </section>
 <script src="app.js" defer></script>
+<script src="rtsp.js" defer></script>
 <script src="script.js" defer></script>
+<script type="text/javascript">
+  player = new JSMpeg.Player('ws://localhost:9999', {
+    canvas: document.getElementById('rtsp') // Canvas should be a canvas DOM element
+  })
+</script>
 </body>
 
 </html>
